@@ -637,3 +637,51 @@ footer {
   .hero h1 { font-size: 1.8rem; }
   .btn-match { font-size: 1rem; }
 }
+
+/* ── OAUTH STYLES ── */
+.header-right { display: flex; align-items: center; gap: 1rem; }
+
+.spotify-badge {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(200,255,0,0.08);
+  border: 1px solid rgba(200,255,0,0.2);
+  border-radius: 100px;
+  font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent);
+}
+.spotify-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease infinite; }
+.badge-logout { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 0.7rem; padding: 0 0 0 0.25rem; }
+.badge-logout:hover { color: var(--text); }
+
+.connect-section {
+  display: flex; justify-content: center; align-items: center;
+  min-height: 50vh; animation: fadeUp 0.7s ease both;
+}
+.connect-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 3rem 2.5rem;
+  text-align: center; max-width: 440px; width: 100%;
+}
+.connect-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem; color: var(--accent);
+}
+.connect-card h2 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.75rem; }
+.connect-card > p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.75rem; }
+
+.btn-spotify {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  background: #1DB954; color: #000;
+  border: none; border-radius: 100px;
+  padding: 0.85rem 2rem;
+  font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500;
+  cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+  width: 100%; justify-content: center;
+}
+.btn-spotify:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+.btn-spotify:disabled { opacity: 0.4; cursor: not-allowed; }
+.connect-note { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); margin-top: 1rem; }
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }

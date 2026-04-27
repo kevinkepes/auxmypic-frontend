@@ -1,7 +1,6 @@
 // ============================================================
 //  AuxMyPic — Frontend Configuration
-//  Dupa ce ai deploiat backend-ul pe Render, pune URL-ul tau aici.
-//  Exemplu: 'https://auxmypic-api.onrender.com'
+//  Pune URL-ul backend-ului tau de pe Render aici.
 // ============================================================
 
 window.AUXMYPIC_CONFIG = {

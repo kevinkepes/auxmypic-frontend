@@ -4,164 +4,135 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="AuxMyPic — Găsește piese care se potrivesc cu poza ta de Instagram story." />
-  <meta property="og:title" content="AuxMyPic" />
-  <meta property="og:description" content="Găsește piese care se potrivesc cu poza ta de Instagram story." />
   <title>AuxMyPic — Soundtrack Your Story</title>
-
-  <!-- config.js trebuie incarcat primul — contine API_URL -->
   <script src="config.js"></script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ── HEADER ── -->
   <header>
     <div class="logo">Aux<span>MyPic</span></div>
-    <div class="tagline">soundtrack your story</div>
+    <div class="header-right">
+      <div class="tagline">soundtrack your story</div>
+      <div id="spotify-badge" class="spotify-badge" style="display:none">
+        <div class="spotify-dot"></div>
+        <span id="spotify-badge-text">Conectat la Spotify</span>
+        <button class="badge-logout" onclick="App.logout()">✕</button>
+      </div>
+    </div>
   </header>
 
-  <!-- ── MAIN ── -->
   <main>
 
     <!-- Hero -->
     <section class="hero">
       <h1>Songs that<br /><em>match</em> your photo.</h1>
-      <p>Adaugă o poză de story, importă playlist-ul tău Spotify și AI-ul găsește piesele perfecte pentru vibe-ul tău.</p>
+      <p>Conectează-te cu Spotify, adaugă o poză și AI-ul găsește piesele perfecte pentru vibe-ul tău.</p>
     </section>
 
-    <!-- Step cards -->
-    <div class="cards">
-
-      <!-- Card 1: Playlist -->
-      <div class="card" id="card-playlist">
-        <div class="card-num">01 — PLAYLIST</div>
-        <h2>Import Spotify playlist</h2>
-        <p>Paste orice link de playlist public Spotify.</p>
-        <div class="input-row">
-          <input
-            type="text"
-            id="playlist-url"
-            placeholder="https://open.spotify.com/playlist/..."
-            autocomplete="off"
-            spellcheck="false"
-          />
-          <button class="btn" id="btn-load" onclick="App.loadPlaylist()">Load</button>
+    <!-- STEP 0: Connect Spotify -->
+    <div id="connect-section" class="connect-section">
+      <div class="connect-card">
+        <div class="connect-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
         </div>
-        <div id="playlist-status" class="playlist-status" aria-live="polite"></div>
+        <h2>Conectează-te cu Spotify</h2>
+        <p>AuxMyPic accesează playlist-urile tale pentru a găsi piesele perfecte. Datele tale rămân private.</p>
+        <button class="btn-spotify" id="btn-connect" onclick="App.connectSpotify()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
+          Conectează Spotify
+        </button>
+        <p class="connect-note">Folosim autentificarea oficială Spotify. Nu stocăm parola ta.</p>
       </div>
+    </div>
 
-      <!-- Card 2: Photo -->
-      <div class="card" id="card-photo">
-        <div class="card-num">02 — FOTO</div>
-        <h2>Adaugă poza pentru story</h2>
-        <p>AI-ul analizează culorile, mood-ul și energia din imagine.</p>
-        <div
-          class="dropzone"
-          id="dropzone"
-          role="button"
-          tabindex="0"
-          aria-label="Upload photo"
-          ondragover="App.dragOver(event)"
-          ondragleave="App.dragLeave(event)"
-          ondrop="App.drop(event)"
-          onclick="document.getElementById('file-input').click()"
-          onkeydown="if(event.key==='Enter'||event.key===' ')document.getElementById('file-input').click()"
-        >
-          <input
-            type="file"
-            id="file-input"
-            accept="image/jpeg,image/png,image/webp,image/heic"
-            style="display:none"
-            onchange="App.onFileChange(this)"
-          />
-          <div class="dropzone-idle" id="dropzone-idle">
-            <div class="drop-icon">🌅</div>
-            <div class="drop-label"><strong>Trage poza aici</strong>sau click să alegi</div>
+    <!-- STEPS 1 & 2 (apar dupa autentificare) -->
+    <div id="app-section" style="display:none">
+
+      <div class="cards">
+        <!-- Card 1: Playlist -->
+        <div class="card">
+          <div class="card-num">01 — PLAYLIST</div>
+          <h2>Import Spotify playlist</h2>
+          <p>Paste orice link de playlist Spotify (public sau privat).</p>
+          <div class="input-row">
+            <input type="text" id="playlist-url" placeholder="https://open.spotify.com/playlist/..." autocomplete="off" spellcheck="false" />
+            <button class="btn" id="btn-load" onclick="App.loadPlaylist()">Load</button>
           </div>
-          <img id="photo-preview" class="photo-preview" alt="Previzualizare foto" />
+          <div id="playlist-status" class="playlist-status" aria-live="polite"></div>
         </div>
+
+        <!-- Card 2: Photo -->
+        <div class="card">
+          <div class="card-num">02 — FOTO</div>
+          <h2>Adaugă poza pentru story</h2>
+          <p>AI-ul analizează culorile, mood-ul și energia din imagine.</p>
+          <div class="dropzone" id="dropzone" role="button" tabindex="0"
+               ondragover="App.dragOver(event)" ondragleave="App.dragLeave(event)" ondrop="App.drop(event)"
+               onclick="document.getElementById('file-input').click()"
+               onkeydown="if(event.key==='Enter'||event.key===' ')document.getElementById('file-input').click()">
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,image/heic" style="display:none" onchange="App.onFileChange(this)" />
+            <div class="dropzone-idle" id="dropzone-idle">
+              <div class="drop-icon">🌅</div>
+              <div class="drop-label"><strong>Trage poza aici</strong>sau click să alegi</div>
+            </div>
+            <img id="photo-preview" class="photo-preview" alt="Preview" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Match button -->
+      <div class="match-wrap">
+        <button class="btn-match" id="btn-match" disabled onclick="App.match()">
+          <span>✦</span> AuxMyPic — Găsește Piesele
+        </button>
       </div>
 
     </div>
 
-    <!-- Match button -->
-    <div class="match-wrap">
-      <button class="btn-match" id="btn-match" disabled onclick="App.match()">
-        <span class="btn-match-icon">✦</span>
-        AuxMyPic — Găsește Piesele
-      </button>
-    </div>
-
-    <!-- Status bar -->
-    <div class="statusbar" id="statusbar" aria-live="polite">
-      <div class="spinner"></div>
-      <span id="statusbar-text">Se procesează...</span>
-    </div>
-
-    <!-- Error -->
+    <!-- Status & Error -->
+    <div class="statusbar" id="statusbar"><div class="spinner"></div><span id="statusbar-text"></span></div>
     <div class="error-box" id="error-box" role="alert"></div>
 
-    <!-- ── RESULTS ── -->
-
-    <!-- Vibe card -->
-    <section class="results-section" id="vibe-section" aria-label="Analiza vibe-ului">
+    <!-- Results: Vibe -->
+    <section class="results-section" id="vibe-section">
       <div class="section-label">— Analiza Vibe-ului</div>
       <div class="vibe-card">
-        <img id="vibe-photo" class="vibe-thumb" src="" alt="Poza analizată" />
+        <img id="vibe-photo" class="vibe-thumb" src="" alt="" />
         <div class="vibe-info">
           <div class="vibe-mood" id="vibe-mood"></div>
           <div class="vibe-color" id="vibe-color"></div>
           <p class="vibe-desc" id="vibe-desc"></p>
           <div class="tag-row" id="vibe-tags"></div>
           <div class="bars">
-            <div class="bar-row">
-              <span class="bar-label">Energie</span>
-              <div class="bar-track"><div class="bar-fill" id="bar-energy"></div></div>
-              <span class="bar-pct" id="pct-energy"></span>
-            </div>
-            <div class="bar-row">
-              <span class="bar-label">Pozitivitate</span>
-              <div class="bar-track"><div class="bar-fill" id="bar-valence"></div></div>
-              <span class="bar-pct" id="pct-valence"></span>
-            </div>
-            <div class="bar-row">
-              <span class="bar-label">Danceability</span>
-              <div class="bar-track"><div class="bar-fill" id="bar-dance"></div></div>
-              <span class="bar-pct" id="pct-dance"></span>
-            </div>
-            <div class="bar-row">
-              <span class="bar-label">Acoustic</span>
-              <div class="bar-track"><div class="bar-fill" id="bar-acoustic"></div></div>
-              <span class="bar-pct" id="pct-acoustic"></span>
-            </div>
+            <div class="bar-row"><span class="bar-label">Energie</span><div class="bar-track"><div class="bar-fill" id="bar-energy"></div></div><span class="bar-pct" id="pct-energy"></span></div>
+            <div class="bar-row"><span class="bar-label">Pozitivitate</span><div class="bar-track"><div class="bar-fill" id="bar-valence"></div></div><span class="bar-pct" id="pct-valence"></span></div>
+            <div class="bar-row"><span class="bar-label">Danceability</span><div class="bar-track"><div class="bar-fill" id="bar-dance"></div></div><span class="bar-pct" id="pct-dance"></span></div>
+            <div class="bar-row"><span class="bar-label">Acoustic</span><div class="bar-track"><div class="bar-fill" id="bar-acoustic"></div></div><span class="bar-pct" id="pct-acoustic"></span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Tracks -->
-    <section class="results-section" id="tracks-section" aria-label="Piese recomandate">
+    <!-- Results: Tracks -->
+    <section class="results-section" id="tracks-section">
       <div class="tracks-header">
         <h2>Piesele tale</h2>
         <span class="tracks-meta" id="tracks-meta"></span>
       </div>
       <div class="track-list" id="track-list"></div>
-      <a class="spotify-link" id="spotify-link" href="#" target="_blank" rel="noopener noreferrer">
-        ↗ Deschide playlist-ul pe Spotify
-      </a>
+      <a class="spotify-link" id="spotify-link" href="#" target="_blank" rel="noopener noreferrer">↗ Deschide playlist-ul pe Spotify</a>
     </section>
 
   </main>
 
-  <footer>
-    AuxMyPic &mdash; Powered by Spotify API &amp; Google Gemini AI &mdash; 100% Gratuit
-  </footer>
+  <footer>AuxMyPic &mdash; Powered by Spotify API &amp; Google Gemini AI &mdash; 100% Gratuit</footer>
 
   <script src="app.js"></script>
 </body>
