@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="AuxMyPic — Găsește piese care se potrivesc cu poza ta de Instagram story." />
   <title>AuxMyPic — Soundtrack Your Story</title>
   <script src="config.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,58 +13,66 @@
 
   <header>
     <div class="logo">Aux<span>MyPic</span></div>
-    <div class="header-right">
-      <div class="tagline">soundtrack your story</div>
-      <div id="spotify-badge" class="spotify-badge" style="display:none">
-        <div class="spotify-dot"></div>
-        <span id="spotify-badge-text">Conectat la Spotify</span>
-        <button class="badge-logout" onclick="App.logout()">✕</button>
-      </div>
+    <div id="spotify-badge" class="spotify-badge" style="display:none">
+      <div class="spotify-dot"></div>
+      <span>Conectat la Spotify</span>
+      <button class="badge-logout" onclick="App.logout()" title="Deconectează">✕</button>
     </div>
   </header>
 
   <main>
 
-    <!-- Hero -->
-    <section class="hero">
-      <h1>Songs that<br /><em>match</em> your photo.</h1>
-      <p>Conectează-te cu Spotify, adaugă o poză și AI-ul găsește piesele perfecte pentru vibe-ul tău.</p>
-    </section>
-
-    <!-- STEP 0: Connect Spotify -->
-    <div id="connect-section" class="connect-section">
-      <div class="connect-card">
-        <div class="connect-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-          </svg>
+    <!-- ── CONNECT SCREEN ── -->
+    <div id="screen-connect" class="screen">
+      <section class="hero">
+        <h1>Songs that<br /><em>match</em> your photo.</h1>
+        <p>Conectează-te cu Spotify, alege un playlist și adaugă o poză — AI-ul găsește piesele perfecte.</p>
+      </section>
+      <div class="connect-wrap">
+        <div class="connect-card">
+          <div class="connect-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          </div>
+          <h2>Conectează-te cu Spotify</h2>
+          <p>AuxMyPic îți accesează playlisturile pentru a găsi piesele perfecte. Datele tale rămân private.</p>
+          <button class="btn-spotify" id="btn-connect" onclick="App.connectSpotify()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            Conectează Spotify
+          </button>
+          <p class="connect-note">Folosim autentificarea oficială Spotify. Nu stocăm parola ta.</p>
         </div>
-        <h2>Conectează-te cu Spotify</h2>
-        <p>AuxMyPic accesează playlist-urile tale pentru a găsi piesele perfecte. Datele tale rămân private.</p>
-        <button class="btn-spotify" id="btn-connect" onclick="App.connectSpotify()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-          </svg>
-          Conectează Spotify
-        </button>
-        <p class="connect-note">Folosim autentificarea oficială Spotify. Nu stocăm parola ta.</p>
       </div>
     </div>
 
-    <!-- STEPS 1 & 2 (apar dupa autentificare) -->
-    <div id="app-section" style="display:none">
+    <!-- ── APP SCREEN ── -->
+    <div id="screen-app" class="screen" style="display:none">
 
       <div class="cards">
-        <!-- Card 1: Playlist -->
+
+        <!-- Card 1: Playlist picker -->
         <div class="card">
           <div class="card-num">01 — PLAYLIST</div>
-          <h2>Import Spotify playlist</h2>
-          <p>Paste orice link de playlist Spotify (public sau privat).</p>
-          <div class="input-row">
-            <input type="text" id="playlist-url" placeholder="https://open.spotify.com/playlist/..." autocomplete="off" spellcheck="false" />
-            <button class="btn" id="btn-load" onclick="App.loadPlaylist()">Load</button>
+          <h2>Alege un playlist</h2>
+          <p>Playlisturile tale Spotify, gata de selectat.</p>
+
+          <!-- Loading state -->
+          <div id="playlists-loading" class="playlists-loading">
+            <div class="mini-spinner"></div>
+            <span>Se încarcă playlisturile...</span>
           </div>
-          <div id="playlist-status" class="playlist-status" aria-live="polite"></div>
+
+          <!-- Playlist grid -->
+          <div id="playlists-grid" class="playlists-grid" style="display:none"></div>
+
+          <!-- Selected playlist indicator -->
+          <div id="selected-playlist" class="selected-playlist" style="display:none">
+            <img id="sel-img" src="" alt="" />
+            <div class="sel-info">
+              <div class="sel-name" id="sel-name"></div>
+              <div class="sel-count" id="sel-count"></div>
+            </div>
+            <button class="sel-change" onclick="App.changePlaylist()">Schimbă</button>
+          </div>
         </div>
 
         <!-- Card 2: Photo -->
@@ -85,6 +92,7 @@
             <img id="photo-preview" class="photo-preview" alt="Preview" />
           </div>
         </div>
+
       </div>
 
       <!-- Match button -->
@@ -96,7 +104,7 @@
 
     </div>
 
-    <!-- Status & Error -->
+    <!-- Status & Error (global) -->
     <div class="statusbar" id="statusbar"><div class="spinner"></div><span id="statusbar-text"></span></div>
     <div class="error-box" id="error-box" role="alert"></div>
 

@@ -685,3 +685,48 @@ footer {
 .connect-note { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); margin-top: 1rem; }
 
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ── OAUTH + PLAYLIST PICKER STYLES ── */
+.screen { animation: fadeUp 0.6s ease both; }
+.header-right { display: flex; align-items: center; gap: 1rem; }
+.spotify-badge { display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.75rem; background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.2); border-radius: 100px; font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent); }
+.spotify-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease infinite; }
+.badge-logout { background: none; border: none; color: var(--muted); cursor: pointer; padding: 0 0 0 0.25rem; font-size: 0.75rem; }
+.badge-logout:hover { color: var(--text); }
+
+.connect-wrap { display: flex; justify-content: center; padding: 2rem 0 4rem; }
+.connect-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 3rem 2.5rem; text-align: center; max-width: 420px; width: 100%; }
+.connect-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(200,255,0,0.08); border: 1px solid rgba(200,255,0,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--accent); }
+.connect-card h2 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.75rem; }
+.connect-card > p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; margin-bottom: 1.75rem; }
+.btn-spotify { display: inline-flex; align-items: center; gap: 0.75rem; background: #1DB954; color: #000; border: none; border-radius: 100px; padding: 0.85rem 2rem; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: opacity .2s, transform .2s; width: 100%; justify-content: center; }
+.btn-spotify:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+.btn-spotify:disabled { opacity: 0.4; cursor: not-allowed; }
+.connect-note { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted); margin-top: 1rem; }
+
+/* Playlists loading */
+.playlists-loading { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 0; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+.mini-spinner { width: 14px; height: 14px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.75s linear infinite; flex-shrink: 0; }
+
+/* Playlist grid */
+.playlists-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; max-height: 280px; overflow-y: auto; padding-right: 0.25rem; }
+.playlists-grid::-webkit-scrollbar { width: 3px; }
+.playlists-grid::-webkit-scrollbar-track { background: transparent; }
+.playlists-grid::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.pl-item { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.6rem; cursor: pointer; transition: border-color .2s, background .2s; text-align: center; }
+.pl-item:hover { border-color: var(--accent); background: var(--accent-dim); }
+.pl-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; background: var(--surface2); margin-bottom: 0.4rem; display: block; }
+.pl-name { font-size: 0.68rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.15rem; }
+.pl-count { font-family: var(--font-mono); font-size: 0.58rem; color: var(--muted); }
+
+/* Selected playlist */
+.selected-playlist { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--accent-dim); border: 1px solid rgba(200,255,0,0.2); border-radius: var(--radius-sm); }
+#sel-img { width: 44px; height: 44px; border-radius: 5px; object-fit: cover; background: var(--surface2); flex-shrink: 0; }
+.sel-info { flex: 1; min-width: 0; }
+.sel-name { font-size: 0.85rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sel-count { font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted); }
+.sel-change { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-family: var(--font-mono); font-size: 0.62rem; padding: 0.3rem 0.6rem; cursor: pointer; white-space: nowrap; transition: border-color .2s, color .2s; }
+.sel-change:hover { border-color: var(--accent); color: var(--accent); }
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
